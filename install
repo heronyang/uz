@@ -1,0 +1,15 @@
+#!/usr/bin/python
+import os
+import sys
+from subprocess import call
+
+uz_file = './uz'
+bin_path = '/usr/bin'
+
+euid = os.geteuid()
+if euid != 0:
+    print "Script not started as root. Running sudo.."
+    args = ['sudo', sys.executable] + sys.argv + [os.environ]
+    # the next line replaces the currently-running process with the sudo
+    call(['sudo', 'ln', uz_file, bin_path])
+    print 'exit.'
